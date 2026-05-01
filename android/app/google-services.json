@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "123887623196",
+    "project_id": "arabmashreq-bde59",
+    "storage_bucket": "arabmashreq-bde59.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123887623196:android:173c98384bae4c8b8993d9",
+        "android_client_info": {
+          "package_name": "com.arabmashreq.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "123887623196-jk2icag16b80v285i97898e5jmdncsq8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arabmashreq.mobile",
+            "certificate_hash": "3144f5145e62cb70132125fc6e096630c336a1f9"
+          }
+        },
+        {
+          "client_id": "123887623196-c3cn0o3ffsk5ch1vf1fcj9m5cqej9sd0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtMVHiu64kNGR3YKk18yLd_eRCmeobElQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "123887623196-c3cn0o3ffsk5ch1vf1fcj9m5cqej9sd0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "123887623196-9u9hcg5ghogk28olctsh0vv2vd9avi5n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.arabmashreq.mobile"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123887623196:android:f516dc72140d2a308993d9",
+        "android_client_info": {
+          "package_name": "com.example.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "123887623196-c3cn0o3ffsk5ch1vf1fcj9m5cqej9sd0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtMVHiu64kNGR3YKk18yLd_eRCmeobElQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "123887623196-c3cn0o3ffsk5ch1vf1fcj9m5cqej9sd0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "123887623196-9u9hcg5ghogk28olctsh0vv2vd9avi5n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.arabmashreq.mobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

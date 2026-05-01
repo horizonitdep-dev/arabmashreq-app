@@ -1,0 +1,6 @@
+﻿# Copy this file to key.properties on your local machine.
+# Do NOT commit real credentials to source control.
+storePassword=
+keyPassword=
+keyAlias=arabmashreq_release
+storeFile=arabmashreq-upload.jks
