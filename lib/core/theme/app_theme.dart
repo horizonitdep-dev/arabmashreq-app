@@ -26,7 +26,7 @@ class AppTheme {
         titleTextStyle: textTheme.titleLarge,
         iconTheme: const IconThemeData(color: AppColors.black),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         margin: EdgeInsets.zero,
         elevation: 0,
         color: AppColors.lightSurface,
@@ -61,8 +61,8 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          primary: AppColors.black,
-          onPrimary: Colors.white,
+          backgroundColor: AppColors.black,
+          foregroundColor: Colors.white,
           minimumSize: const Size.fromHeight(46),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           shape:
@@ -73,7 +73,7 @@ class AppTheme {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          primary: AppColors.black,
+          foregroundColor: AppColors.black,
           minimumSize: const Size.fromHeight(46),
           side: const BorderSide(color: AppColors.lightBorder),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -85,12 +85,12 @@ class AppTheme {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          primary: AppColors.gold,
+          foregroundColor: AppColors.gold,
           textStyle:
               textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800),
         ),
       ),
-      tabBarTheme: TabBarTheme(
+      tabBarTheme: TabBarThemeData(
         labelColor: AppColors.black,
         unselectedLabelColor: AppColors.lightMuted,
         indicator: BoxDecoration(
@@ -105,8 +105,8 @@ class AppTheme {
         elevation: 0,
         backgroundColor: AppColors.lightSurface,
         indicatorColor: AppColors.sand,
-        labelTextStyle: MaterialStateProperty.resolveWith((states) {
-          final selected = states.contains(MaterialState.selected);
+        labelTextStyle: WidgetStateProperty.resolveWith((states) {
+          final selected = states.contains(WidgetState.selected);
           return GoogleFonts.tajawal(
             fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
             fontSize: 12.5,
@@ -121,7 +121,7 @@ class AppTheme {
             textTheme.bodyMedium?.copyWith(color: Colors.white, height: 1.7),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         titleTextStyle: textTheme.titleLarge,
         contentTextStyle: textTheme.bodyMedium,
@@ -151,7 +151,7 @@ class AppTheme {
         titleTextStyle: textTheme.titleLarge,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         margin: EdgeInsets.zero,
         elevation: 0,
         color: AppColors.darkSurface,
@@ -185,8 +185,8 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          primary: AppColors.gold,
-          onPrimary: Colors.black,
+          backgroundColor: AppColors.gold,
+          foregroundColor: Colors.black,
           minimumSize: const Size.fromHeight(46),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           shape:
@@ -197,7 +197,7 @@ class AppTheme {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          primary: const Color(0xFFE9E9E9),
+          foregroundColor: const Color(0xFFE9E9E9),
           minimumSize: const Size.fromHeight(46),
           side: const BorderSide(color: AppColors.darkBorder),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -209,12 +209,12 @@ class AppTheme {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          primary: AppColors.yellow,
+          foregroundColor: AppColors.yellow,
           textStyle:
               textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800),
         ),
       ),
-      tabBarTheme: TabBarTheme(
+      tabBarTheme: TabBarThemeData(
         labelColor: AppColors.yellow,
         unselectedLabelColor: AppColors.darkMuted,
         indicator: BoxDecoration(
@@ -229,8 +229,8 @@ class AppTheme {
         elevation: 0,
         backgroundColor: AppColors.darkSurface,
         indicatorColor: const Color(0xFF2F2818),
-        labelTextStyle: MaterialStateProperty.resolveWith((states) {
-          final selected = states.contains(MaterialState.selected);
+        labelTextStyle: WidgetStateProperty.resolveWith((states) {
+          final selected = states.contains(WidgetState.selected);
           return GoogleFonts.tajawal(
             fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
             fontSize: 12.5,
@@ -244,7 +244,7 @@ class AppTheme {
         contentTextStyle: textTheme.bodyMedium?.copyWith(color: Colors.white),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: AppColors.darkSurface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         titleTextStyle: textTheme.titleLarge,

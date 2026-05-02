@@ -693,8 +693,8 @@ class _AccountCard extends ConsumerWidget {
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    primary: AppColors.gold,
-                    onPrimary: Colors.black,
+                    backgroundColor: AppColors.gold,
+                    foregroundColor: Colors.black,
                   ),
                   onPressed: () {
                     Navigator.of(context).push(
@@ -994,10 +994,10 @@ class _StaticPageView extends StatelessWidget {
                         data: content,
                         style: {
                           'body': Style(
-                            margin: EdgeInsets.zero,
-                            padding: EdgeInsets.zero,
+                            margin: Margins.zero,
+                            padding: HtmlPaddings.zero,
                             lineHeight: const LineHeight(1.95),
-                            fontSize: const FontSize(16),
+                            fontSize: FontSize(16),
                             color: textColor,
                           ),
                           'p': Style(color: textColor),

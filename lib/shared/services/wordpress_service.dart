@@ -186,8 +186,8 @@ class WordpressService {
     try {
       final response = await Dio(
         BaseOptions(
-          connectTimeout: 15000,
-          receiveTimeout: 20000,
+          connectTimeout: const Duration(milliseconds: 15000),
+          receiveTimeout: const Duration(milliseconds: 20000),
           responseType: ResponseType.plain,
           headers: {'Accept': 'text/html'},
         ),

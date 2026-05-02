@@ -132,7 +132,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/article/:id',
         builder: (_, state) {
           final article = state.extra as ArticleModel?;
-          final id = int.parse(state.params['id']!);
+          final id = int.parse(state.pathParameters['id']!);
           return ArticleDetailsScreen(articleId: id, initialArticle: article);
         },
       ),

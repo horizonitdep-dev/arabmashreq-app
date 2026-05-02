@@ -615,9 +615,9 @@ class BackendService {
       final downloadDio = Dio(
         BaseOptions(
           headers: Map<String, dynamic>.from(_dio.options.headers),
-          connectTimeout: 30000,
-          receiveTimeout: 0,
-          sendTimeout: 0,
+          connectTimeout: const Duration(milliseconds: 30000),
+          receiveTimeout: Duration.zero,
+          sendTimeout: Duration.zero,
           followRedirects: true,
           maxRedirects: 5,
         ),
@@ -678,10 +678,10 @@ class BackendService {
     final data = response?.data;
 
     if (response == null) {
-      if (error.type == DioErrorType.connectTimeout ||
-          error.type == DioErrorType.receiveTimeout ||
-          error.type == DioErrorType.sendTimeout ||
-          error.type == DioErrorType.other) {
+      if (error.type == DioExceptionType.connectionTimeout ||
+          error.type == DioExceptionType.receiveTimeout ||
+          error.type == DioExceptionType.sendTimeout ||
+          error.type == DioExceptionType.unknown) {
         return ApiException(
           message:
               'تعذر الاتصال بالخادم. تحقق من اتصال الإنترنت ومن إعداد API_BASE_URL الصحيح.',
