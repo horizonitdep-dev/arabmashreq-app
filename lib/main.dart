@@ -73,8 +73,7 @@ class _ArabMashreqAppState extends ConsumerState<ArabMashreqApp> {
       theme: AppTheme.light(),
       darkTheme: AppTheme.darkTheme(),
       themeMode: themeMode,
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
+      routerConfig: router,
       locale: const Locale('ar'),
       supportedLocales: const [Locale('ar')],
       localizationsDelegates: const [

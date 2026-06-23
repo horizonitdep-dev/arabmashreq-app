@@ -1,6 +1,8 @@
-﻿platform :ios, '12.0'
+platform :ios, '13.0'
 
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+use_modular_headers!
 
 project 'Runner', {
   'Debug' => :debug,
@@ -25,7 +27,7 @@ require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelpe
 
 flutter_ios_podfile_setup
 
-target 'Runner' do
+target 'ArabMashreq' do
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
 
