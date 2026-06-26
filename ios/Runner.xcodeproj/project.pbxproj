@@ -374,7 +374,7 @@
 				CODE_SIGN_ENTITLEMENTS = ArabMashreq/ArabMashreq.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 7RD9RSDWVV;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ArabMashreq/Info.plist;
@@ -513,7 +513,7 @@
 				CODE_SIGN_ENTITLEMENTS = ArabMashreq/ArabMashreq.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 7RD9RSDWVV;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ArabMashreq/Info.plist;
@@ -546,7 +546,7 @@
 				CODE_SIGN_ENTITLEMENTS = ArabMashreq/ArabMashreq.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 7RD9RSDWVV;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ArabMashreq/Info.plist;
