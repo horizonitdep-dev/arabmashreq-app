@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../../../core/config/app_config.dart';
 import '../../../core/storage/local_storage.dart';
@@ -208,6 +209,83 @@ class AuthController extends StateNotifier<AuthState> {
       state = state.copyWith(
         isLoading: false,
         errorMessage: 'تعذر تسجيل الدخول عبر Google حالياً.',
+      );
+      return false;
+    }
+  }
+
+  Future<bool> loginWithApple({String deviceName = 'mobile-app'}) async {
+    state = state.copyWith(
+      isLoading: true,
+      clearError: true,
+      clearMessage: true,
+      fieldErrors: const <String, String>{},
+    );
+
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: const [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      final identityToken = credential.identityToken;
+      if (identityToken == null || identityToken.isEmpty) {
+        throw ApiException(
+          message:
+              '\u062a\u0639\u0630\u0631 \u0627\u0644\u062d\u0635\u0648\u0644 \u0639\u0644\u0649 \u0631\u0645\u0632 \u0627\u0644\u062a\u062d\u0642\u0642 \u0645\u0646 Apple.',
+        );
+      }
+
+      final authorizationCode = credential.authorizationCode;
+      final fullName = [
+        credential.givenName,
+        credential.familyName,
+      ].where((part) => part != null && part.trim().isNotEmpty).join(' ');
+
+      final response = await ref.read(backendServiceProvider).appleLogin(
+            identityToken: identityToken,
+            authorizationCode: authorizationCode,
+            userIdentifier: credential.userIdentifier,
+            email: credential.email,
+            fullName: fullName.isEmpty ? null : fullName,
+            deviceName: deviceName,
+          );
+
+      await _persistSession(token: response.token, user: response.user);
+      await _registerCurrentDeviceToken();
+      state = state.copyWith(
+        isLoading: false,
+        token: response.token,
+        user: response.user,
+        message: response.message,
+      );
+      await loadPreferences();
+      return true;
+    } on SignInWithAppleAuthorizationException catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        message: e.code == AuthorizationErrorCode.canceled
+            ? '\u062a\u0645 \u0625\u0644\u063a\u0627\u0621 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0639\u0628\u0631 Apple.'
+            : null,
+        errorMessage: e.code == AuthorizationErrorCode.canceled
+            ? null
+            : '\u062a\u0639\u0630\u0631 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0639\u0628\u0631 Apple \u062d\u0627\u0644\u064a\u0627\u064b.',
+      );
+      return false;
+    } on ApiException catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: e.message,
+        fieldErrors: e.fieldErrors,
+      );
+      return false;
+    } catch (_) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage:
+            '\u062a\u0639\u0630\u0631 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0639\u0628\u0631 Apple \u062d\u0627\u0644\u064a\u0627\u064b.',
       );
       return false;
     }

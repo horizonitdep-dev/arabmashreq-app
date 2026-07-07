@@ -56,10 +56,12 @@ class BackendService {
       return AuthResponseModel(
         token: (data['token'] ?? '').toString(),
         user: AuthUserModel.fromJson(userJson),
-        message: (data['message'] ?? 'تم تسجيل الدخول بنجاح.').toString(),
+        message: (data['message'] ?? 'ØªÙ… ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø¨Ù†Ø¬Ø§Ø­.')
+            .toString(),
       );
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر تسجيل الدخول.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„.');
     }
   }
 
@@ -82,11 +84,49 @@ class BackendService {
       return AuthResponseModel(
         token: (data['token'] ?? '').toString(),
         user: AuthUserModel.fromJson(userJson),
-        message:
-            (data['message'] ?? 'تم تسجيل الدخول عبر Google بنجاح.').toString(),
+        message: (data['message'] ??
+                'ØªÙ… ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø¹Ø¨Ø± Google Ø¨Ù†Ø¬Ø§Ø­.')
+            .toString(),
       );
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر تسجيل الدخول عبر Google.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø¹Ø¨Ø± Google.');
+    }
+  }
+
+  Future<AuthResponseModel> appleLogin({
+    required String identityToken,
+    required String authorizationCode,
+    String? userIdentifier,
+    String? email,
+    String? fullName,
+    required String deviceName,
+  }) async {
+    try {
+      final response = await _dio.post('/auth/apple', data: {
+        'identity_token': identityToken,
+        'authorization_code': authorizationCode,
+        if (userIdentifier != null && userIdentifier.isNotEmpty)
+          'user_identifier': userIdentifier,
+        if (email != null && email.isNotEmpty) 'email': email,
+        if (fullName != null && fullName.isNotEmpty) 'full_name': fullName,
+        'device_name': deviceName,
+      });
+
+      final data = Map<String, dynamic>.from(response.data as Map);
+      final userJson = Map<String, dynamic>.from(
+          (data['user'] ?? <String, dynamic>{}) as Map);
+      return AuthResponseModel(
+        token: (data['token'] ?? '').toString(),
+        user: AuthUserModel.fromJson(userJson),
+        message: (data['message'] ??
+                '\u062a\u0645 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0639\u0628\u0631 Apple \u0628\u0646\u062c\u0627\u062d.')
+            .toString(),
+      );
+    } on DioError catch (e) {
+      throw _mapDioError(e,
+          fallbackMessage:
+              '\u062a\u0639\u0630\u0631 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0639\u0628\u0631 Apple.');
     }
   }
 
@@ -114,10 +154,12 @@ class BackendService {
       return AuthResponseModel(
         token: (data['token'] ?? '').toString(),
         user: AuthUserModel.fromJson(userJson),
-        message: (data['message'] ?? 'تم إنشاء الحساب بنجاح.').toString(),
+        message: (data['message'] ?? 'ØªÙ… Ø¥Ù†Ø´Ø§Ø¡ Ø§Ù„Ø­Ø³Ø§Ø¨ Ø¨Ù†Ø¬Ø§Ø­.')
+            .toString(),
       );
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر إنشاء الحساب.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± Ø¥Ù†Ø´Ø§Ø¡ Ø§Ù„Ø­Ø³Ø§Ø¨.');
     }
   }
 
@@ -137,7 +179,8 @@ class BackendService {
           (data['data'] ?? <String, dynamic>{}) as Map);
       return AuthUserModel.fromJson(userJson);
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر تحميل الملف الشخصي.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ.');
     }
   }
 
@@ -149,7 +192,9 @@ class BackendService {
           (data['data'] ?? <String, dynamic>{}) as Map);
       return NotificationPreferencesModel.fromJson(prefsJson);
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر تحميل تفضيلات الإشعارات.');
+      throw _mapDioError(e,
+          fallbackMessage:
+              'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ ØªÙØ¶ÙŠÙ„Ø§Øª Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª.');
     }
   }
 
@@ -163,7 +208,9 @@ class BackendService {
           (data['data'] ?? <String, dynamic>{}) as Map);
       return NotificationPreferencesModel.fromJson(prefsJson);
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر حفظ تفضيلات الإشعارات.');
+      throw _mapDioError(e,
+          fallbackMessage:
+              'ØªØ¹Ø°Ø± Ø­ÙØ¸ ØªÙØ¶ÙŠÙ„Ø§Øª Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª.');
     }
   }
 
@@ -190,7 +237,9 @@ class BackendService {
         debugPrint(
             '[BREAKING] fetch failed: ${e.response?.statusCode ?? 'no_status'}');
       }
-      throw _mapDioError(e, fallbackMessage: 'تعذر تحميل الأخبار العاجلة.');
+      throw _mapDioError(e,
+          fallbackMessage:
+              'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ø£Ø®Ø¨Ø§Ø± Ø§Ù„Ø¹Ø§Ø¬Ù„Ø©.');
     }
   }
 
@@ -202,7 +251,8 @@ class BackendService {
           (data['data'] ?? <String, dynamic>{}) as Map);
       return UserProfileModel.fromJson(profileJson);
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر تحميل بيانات الحساب.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø­Ø³Ø§Ø¨.');
     }
   }
 
@@ -235,7 +285,8 @@ class BackendService {
           (data['data'] ?? <String, dynamic>{}) as Map);
       return AuthUserModel.fromJson(userJson);
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر تحديث الملف الشخصي.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ø¯ÙŠØ« Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ.');
     }
   }
 
@@ -251,7 +302,8 @@ class BackendService {
         'new_password_confirmation': newPasswordConfirmation,
       });
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر تغيير كلمة المرور.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± ØªØºÙŠÙŠØ± ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ±.');
     }
   }
 
@@ -263,7 +315,7 @@ class BackendService {
       }
       await _dio.delete('/profile/delete-account', data: payload);
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر حذف الحساب.');
+      throw _mapDioError(e, fallbackMessage: 'ØªØ¹Ø°Ø± Ø­Ø°Ù Ø§Ù„Ø­Ø³Ø§Ø¨.');
     }
   }
 
@@ -358,9 +410,9 @@ class BackendService {
       return Map<String, dynamic>.from(response.data as Map);
     } catch (_) {
       return {
-        'about_us': 'لا يوجد محتوى متاح حالياً.',
-        'team': 'لا يوجد محتوى متاح حالياً.',
-        'privacy_policy': 'لا يوجد محتوى متاح حالياً.',
+        'about_us': 'Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ù…Ø­ØªÙˆÙ‰ Ù…ØªØ§Ø­ Ø­Ø§Ù„ÙŠØ§Ù‹.',
+        'team': 'Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ù…Ø­ØªÙˆÙ‰ Ù…ØªØ§Ø­ Ø­Ø§Ù„ÙŠØ§Ù‹.',
+        'privacy_policy': 'Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ù…Ø­ØªÙˆÙ‰ Ù…ØªØ§Ø­ Ø­Ø§Ù„ÙŠØ§Ù‹.',
       };
     }
   }
@@ -370,7 +422,7 @@ class BackendService {
       if (kDebugMode) {
         final tokenPrefix =
             token.substring(0, token.length > 18 ? 18 : token.length);
-        debugPrint('[FCM] إرسال token إلى /fcm-tokens للجهاز: ');
+        debugPrint('[FCM] Ø¥Ø±Ø³Ø§Ù„ token Ø¥Ù„Ù‰ /fcm-tokens Ù„Ù„Ø¬Ù‡Ø§Ø²: ');
         debugPrint('[FCM] Token Prefix (register): $tokenPrefix...');
       }
       await _dio.post('/fcm-tokens', data: {
@@ -379,17 +431,18 @@ class BackendService {
         'platform': 'mobile',
       });
       if (kDebugMode) {
-        debugPrint('[FCM] تم إرسال token إلى الخادم بنجاح.');
+        debugPrint(
+            '[FCM] ØªÙ… Ø¥Ø±Ø³Ø§Ù„ token Ø¥Ù„Ù‰ Ø§Ù„Ø®Ø§Ø¯Ù… Ø¨Ù†Ø¬Ø§Ø­.');
       }
     } on DioError catch (e) {
       if (kDebugMode) {
         debugPrint(
-            '[FCM] فشل إرسال token إلى الخادم: ${e.response?.statusCode ?? 'no_status'}');
-        debugPrint('[FCM] تفاصيل الخطأ: ${e.message}');
+            '[FCM] ÙØ´Ù„ Ø¥Ø±Ø³Ø§Ù„ token Ø¥Ù„Ù‰ Ø§Ù„Ø®Ø§Ø¯Ù…: ${e.response?.statusCode ?? 'no_status'}');
+        debugPrint('[FCM] ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø®Ø·Ø£: ${e.message}');
       }
     } catch (e) {
       if (kDebugMode) {
-        debugPrint('[FCM] فشل إرسال token إلى الخادم: $e');
+        debugPrint('[FCM] ÙØ´Ù„ Ø¥Ø±Ø³Ø§Ù„ token Ø¥Ù„Ù‰ Ø§Ù„Ø®Ø§Ø¯Ù…: $e');
       }
     }
   }
@@ -404,7 +457,8 @@ class BackendService {
           .map(CommentModel.fromJson)
           .toList(growable: false);
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر تحميل التعليقات.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø§Ù„ØªØ¹Ù„ÙŠÙ‚Ø§Øª.');
     }
   }
 
@@ -418,7 +472,8 @@ class BackendService {
         'content': content,
       });
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر إضافة التعليق.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± Ø¥Ø¶Ø§ÙØ© Ø§Ù„ØªØ¹Ù„ÙŠÙ‚.');
     }
   }
 
@@ -434,7 +489,7 @@ class BackendService {
         'content': content,
       });
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر إضافة الرد.');
+      throw _mapDioError(e, fallbackMessage: 'ØªØ¹Ø°Ø± Ø¥Ø¶Ø§ÙØ© Ø§Ù„Ø±Ø¯.');
     }
   }
 
@@ -457,7 +512,7 @@ class BackendService {
       } on DioError catch (fallbackError) {
         throw _mapDioError(
           fallbackError,
-          fallbackMessage: 'تعذر حذف التعليق.',
+          fallbackMessage: 'ØªØ¹Ø°Ø± Ø­Ø°Ù Ø§Ù„ØªØ¹Ù„ÙŠÙ‚.',
         );
       }
     }
@@ -473,7 +528,8 @@ class BackendService {
         'reason': reason,
       });
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر إرسال البلاغ.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± Ø¥Ø±Ø³Ø§Ù„ Ø§Ù„Ø¨Ù„Ø§Øº.');
     }
   }
 
@@ -501,7 +557,8 @@ class BackendService {
     try {
       await _dio.post('/articles/like', data: {'article_id': articleId});
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر تسجيل الإعجاب.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¥Ø¹Ø¬Ø§Ø¨.');
     }
   }
 
@@ -509,7 +566,8 @@ class BackendService {
     try {
       await _dio.post('/articles/unlike', data: {'article_id': articleId});
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر إلغاء الإعجاب.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± Ø¥Ù„ØºØ§Ø¡ Ø§Ù„Ø¥Ø¹Ø¬Ø§Ø¨.');
     }
   }
 
@@ -524,7 +582,8 @@ class BackendService {
           .map(AppNotificationModel.fromJson)
           .toList(growable: false);
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر تحميل الإشعارات.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª.');
     }
   }
 
@@ -534,7 +593,8 @@ class BackendService {
         if (notificationIds.isNotEmpty) 'notification_ids': notificationIds,
       });
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر تحديث حالة الإشعارات.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ø¯ÙŠØ« Ø­Ø§Ù„Ø© Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª.');
     }
   }
 
@@ -545,7 +605,8 @@ class BackendService {
           'notification_ids': notificationIds,
       });
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر حذف الإشعارات.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± Ø­Ø°Ù Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª.');
     }
   }
 
@@ -567,7 +628,8 @@ class BackendService {
           .map(MagazineIssueModel.fromJson)
           .toList(growable: false);
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر تحميل أعداد المجلة.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø£Ø¹Ø¯Ø§Ø¯ Ø§Ù„Ù…Ø¬Ù„Ø©.');
     }
   }
 
@@ -580,7 +642,8 @@ class BackendService {
       );
       return MagazineIssueModel.fromJson(json);
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر تحميل بيانات العدد.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø¹Ø¯Ø¯.');
     }
   }
 
@@ -615,9 +678,9 @@ class BackendService {
       final downloadDio = Dio(
         BaseOptions(
           headers: Map<String, dynamic>.from(_dio.options.headers),
-          connectTimeout: const Duration(milliseconds: 30000),
-          receiveTimeout: Duration.zero,
-          sendTimeout: Duration.zero,
+          connectTimeout: 30000,
+          receiveTimeout: 0,
+          sendTimeout: 0,
           followRedirects: true,
           maxRedirects: 5,
         ),
@@ -630,7 +693,7 @@ class BackendService {
         options: Options(responseType: ResponseType.bytes),
       );
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر تنزيل الملف.');
+      throw _mapDioError(e, fallbackMessage: 'ØªØ¹Ø°Ø± ØªÙ†Ø²ÙŠÙ„ Ø§Ù„Ù…Ù„Ù.');
     }
   }
 
@@ -654,7 +717,8 @@ class BackendService {
           .map((e) => Map<String, dynamic>.from(e))
           .toList(growable: false);
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر تحميل تعليقاتك.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ ØªØ¹Ù„ÙŠÙ‚Ø§ØªÙƒ.');
     }
   }
 
@@ -668,7 +732,8 @@ class BackendService {
           .map((e) => Map<String, dynamic>.from(e))
           .toList(growable: false);
     } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'تعذر تحميل إعجاباتك.');
+      throw _mapDioError(e,
+          fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø¥Ø¹Ø¬Ø§Ø¨Ø§ØªÙƒ.');
     }
   }
 
@@ -678,13 +743,13 @@ class BackendService {
     final data = response?.data;
 
     if (response == null) {
-      if (error.type == DioExceptionType.connectionTimeout ||
-          error.type == DioExceptionType.receiveTimeout ||
-          error.type == DioExceptionType.sendTimeout ||
-          error.type == DioExceptionType.unknown) {
+      if (error.type == DioErrorType.connectTimeout ||
+          error.type == DioErrorType.receiveTimeout ||
+          error.type == DioErrorType.sendTimeout ||
+          error.type == DioErrorType.other) {
         return ApiException(
           message:
-              'تعذر الاتصال بالخادم. تحقق من اتصال الإنترنت ومن إعداد API_BASE_URL الصحيح.',
+              'ØªØ¹Ø°Ø± Ø§Ù„Ø§ØªØµØ§Ù„ Ø¨Ø§Ù„Ø®Ø§Ø¯Ù…. ØªØ­Ù‚Ù‚ Ù…Ù† Ø§ØªØµØ§Ù„ Ø§Ù„Ø¥Ù†ØªØ±Ù†Øª ÙˆÙ…Ù† Ø¥Ø¹Ø¯Ø§Ø¯ API_BASE_URL Ø§Ù„ØµØ­ÙŠØ­.',
         );
       }
     }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -235,6 +237,25 @@ class _LoginFormState extends ConsumerState<_LoginForm> {
           ),
         ),
         const SizedBox(height: 8),
+        if (Platform.isIOS) ...[
+          OutlinedButton.icon(
+            onPressed: state.isLoading
+                ? null
+                : () async {
+                    FocusScope.of(context).unfocus();
+                    final success = await ref
+                        .read(authControllerProvider.notifier)
+                        .loginWithApple();
+                    if (!mounted) return;
+                    if (success) Navigator.of(context).pop();
+                  },
+            icon: const Icon(Icons.apple),
+            label: const Text(
+              '\u0645\u062a\u0627\u0628\u0639\u0629 \u0628\u0627\u0633\u062a\u062e\u062f\u0627\u0645 Apple',
+            ),
+          ),
+          const SizedBox(height: 8),
+        ],
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
           child: const Text(
