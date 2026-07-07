@@ -59,8 +59,8 @@ class BackendService {
         message: (data['message'] ?? 'ØªÙ… ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø¨Ù†Ø¬Ø§Ø­.')
             .toString(),
       );
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„.');
     }
   }
@@ -88,8 +88,8 @@ class BackendService {
                 'ØªÙ… ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø¹Ø¨Ø± Google Ø¨Ù†Ø¬Ø§Ø­.')
             .toString(),
       );
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø¹Ø¨Ø± Google.');
     }
   }
@@ -123,8 +123,8 @@ class BackendService {
                 '\u062a\u0645 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0639\u0628\u0631 Apple \u0628\u0646\u062c\u0627\u062d.')
             .toString(),
       );
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage:
               '\u062a\u0639\u0630\u0631 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0639\u0628\u0631 Apple.');
     }
@@ -157,8 +157,8 @@ class BackendService {
         message: (data['message'] ?? 'ØªÙ… Ø¥Ù†Ø´Ø§Ø¡ Ø§Ù„Ø­Ø³Ø§Ø¨ Ø¨Ù†Ø¬Ø§Ø­.')
             .toString(),
       );
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± Ø¥Ù†Ø´Ø§Ø¡ Ø§Ù„Ø­Ø³Ø§Ø¨.');
     }
   }
@@ -166,7 +166,7 @@ class BackendService {
   Future<void> logout() async {
     try {
       await _dio.post('/auth/logout');
-    } on DioError catch (_) {
+    } on DioException catch (_) {
       // Ignore server-side failure and clear session locally.
     }
   }
@@ -178,8 +178,8 @@ class BackendService {
       final userJson = Map<String, dynamic>.from(
           (data['data'] ?? <String, dynamic>{}) as Map);
       return AuthUserModel.fromJson(userJson);
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ.');
     }
   }
@@ -191,8 +191,8 @@ class BackendService {
       final prefsJson = Map<String, dynamic>.from(
           (data['data'] ?? <String, dynamic>{}) as Map);
       return NotificationPreferencesModel.fromJson(prefsJson);
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage:
               'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ ØªÙØ¶ÙŠÙ„Ø§Øª Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª.');
     }
@@ -207,8 +207,8 @@ class BackendService {
       final prefsJson = Map<String, dynamic>.from(
           (data['data'] ?? <String, dynamic>{}) as Map);
       return NotificationPreferencesModel.fromJson(prefsJson);
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage:
               'ØªØ¹Ø°Ø± Ø­ÙØ¸ ØªÙØ¶ÙŠÙ„Ø§Øª Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª.');
     }
@@ -232,12 +232,12 @@ class BackendService {
       }
 
       return items;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         debugPrint(
             '[BREAKING] fetch failed: ${e.response?.statusCode ?? 'no_status'}');
       }
-      throw _mapDioError(e,
+      throw _mapDioException(e,
           fallbackMessage:
               'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ø£Ø®Ø¨Ø§Ø± Ø§Ù„Ø¹Ø§Ø¬Ù„Ø©.');
     }
@@ -250,8 +250,8 @@ class BackendService {
       final profileJson = Map<String, dynamic>.from(
           (data['data'] ?? <String, dynamic>{}) as Map);
       return UserProfileModel.fromJson(profileJson);
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø­Ø³Ø§Ø¨.');
     }
   }
@@ -284,8 +284,8 @@ class BackendService {
       final userJson = Map<String, dynamic>.from(
           (data['data'] ?? <String, dynamic>{}) as Map);
       return AuthUserModel.fromJson(userJson);
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ø¯ÙŠØ« Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ.');
     }
   }
@@ -301,8 +301,8 @@ class BackendService {
         'new_password': newPassword,
         'new_password_confirmation': newPasswordConfirmation,
       });
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± ØªØºÙŠÙŠØ± ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ±.');
     }
   }
@@ -314,8 +314,8 @@ class BackendService {
         payload['password'] = password.trim();
       }
       await _dio.delete('/profile/delete-account', data: payload);
-    } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'ØªØ¹Ø°Ø± Ø­Ø°Ù Ø§Ù„Ø­Ø³Ø§Ø¨.');
+    } on DioException catch (e) {
+      throw _mapDioException(e, fallbackMessage: 'ØªØ¹Ø°Ø± Ø­Ø°Ù Ø§Ù„Ø­Ø³Ø§Ø¨.');
     }
   }
 
@@ -335,7 +335,7 @@ class BackendService {
       }
 
       return items;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         debugPrint(
             '[ADS] placement=$placement, failed=${e.response?.statusCode ?? 'no_status'}');
@@ -395,8 +395,8 @@ class BackendService {
       }
 
       return parsed;
-    } on DioError catch (e) {
-      throw _mapDioError(
+    } on DioException catch (e) {
+      throw _mapDioException(
         e,
         fallbackMessage:
             '\u062a\u0639\u0630\u0631 \u062a\u062d\u0645\u064a\u0644 \u0625\u0639\u062f\u0627\u062f\u0627\u062a \u0627\u0644\u062a\u0637\u0628\u064a\u0642.',
@@ -434,7 +434,7 @@ class BackendService {
         debugPrint(
             '[FCM] ØªÙ… Ø¥Ø±Ø³Ø§Ù„ token Ø¥Ù„Ù‰ Ø§Ù„Ø®Ø§Ø¯Ù… Ø¨Ù†Ø¬Ø§Ø­.');
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         debugPrint(
             '[FCM] ÙØ´Ù„ Ø¥Ø±Ø³Ø§Ù„ token Ø¥Ù„Ù‰ Ø§Ù„Ø®Ø§Ø¯Ù…: ${e.response?.statusCode ?? 'no_status'}');
@@ -456,8 +456,8 @@ class BackendService {
           .whereType<Map<String, dynamic>>()
           .map(CommentModel.fromJson)
           .toList(growable: false);
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø§Ù„ØªØ¹Ù„ÙŠÙ‚Ø§Øª.');
     }
   }
@@ -471,8 +471,8 @@ class BackendService {
         'article_id': articleId,
         'content': content,
       });
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± Ø¥Ø¶Ø§ÙØ© Ø§Ù„ØªØ¹Ù„ÙŠÙ‚.');
     }
   }
@@ -488,8 +488,8 @@ class BackendService {
         'parent_id': parentId,
         'content': content,
       });
-    } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'ØªØ¹Ø°Ø± Ø¥Ø¶Ø§ÙØ© Ø§Ù„Ø±Ø¯.');
+    } on DioException catch (e) {
+      throw _mapDioException(e, fallbackMessage: 'ØªØ¹Ø°Ø± Ø¥Ø¶Ø§ÙØ© Ø§Ù„Ø±Ø¯.');
     }
   }
 
@@ -500,7 +500,7 @@ class BackendService {
       }, queryParameters: {
         'comment_id': commentId,
       });
-    } on DioError catch (_) {
+    } on DioException catch (_) {
       // Some backends/proxies may drop DELETE request bodies.
       // Fallback to method override so deletion still works.
       try {
@@ -509,8 +509,8 @@ class BackendService {
           'comment_id': commentId,
         });
         return;
-      } on DioError catch (fallbackError) {
-        throw _mapDioError(
+      } on DioException catch (fallbackError) {
+        throw _mapDioException(
           fallbackError,
           fallbackMessage: 'ØªØ¹Ø°Ø± Ø­Ø°Ù Ø§Ù„ØªØ¹Ù„ÙŠÙ‚.',
         );
@@ -527,8 +527,8 @@ class BackendService {
         'comment_id': commentId,
         'reason': reason,
       });
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± Ø¥Ø±Ø³Ø§Ù„ Ø§Ù„Ø¨Ù„Ø§Øº.');
     }
   }
@@ -538,7 +538,7 @@ class BackendService {
       final response = await _dio.get('/articles/$articleId/likes-count');
       final data = Map<String, dynamic>.from(response.data as Map);
       return int.tryParse((data['likes_count'] ?? 0).toString()) ?? 0;
-    } on DioError catch (_) {
+    } on DioException catch (_) {
       return 0;
     }
   }
@@ -548,7 +548,7 @@ class BackendService {
       final response = await _dio.get('/articles/$articleId/liked-by-user');
       final data = Map<String, dynamic>.from(response.data as Map);
       return data['liked_by_user'] == true;
-    } on DioError catch (_) {
+    } on DioException catch (_) {
       return false;
     }
   }
@@ -556,8 +556,8 @@ class BackendService {
   Future<void> likeArticle(int articleId) async {
     try {
       await _dio.post('/articles/like', data: {'article_id': articleId});
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¥Ø¹Ø¬Ø§Ø¨.');
     }
   }
@@ -565,8 +565,8 @@ class BackendService {
   Future<void> unlikeArticle(int articleId) async {
     try {
       await _dio.post('/articles/unlike', data: {'article_id': articleId});
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± Ø¥Ù„ØºØ§Ø¡ Ø§Ù„Ø¥Ø¹Ø¬Ø§Ø¨.');
     }
   }
@@ -581,8 +581,8 @@ class BackendService {
           .whereType<Map<String, dynamic>>()
           .map(AppNotificationModel.fromJson)
           .toList(growable: false);
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª.');
     }
   }
@@ -592,8 +592,8 @@ class BackendService {
       await _dio.post('/notifications/read', data: {
         if (notificationIds.isNotEmpty) 'notification_ids': notificationIds,
       });
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ø¯ÙŠØ« Ø­Ø§Ù„Ø© Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª.');
     }
   }
@@ -604,8 +604,8 @@ class BackendService {
         if (notificationIds != null && notificationIds.isNotEmpty)
           'notification_ids': notificationIds,
       });
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± Ø­Ø°Ù Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª.');
     }
   }
@@ -627,8 +627,8 @@ class BackendService {
           .whereType<Map<String, dynamic>>()
           .map(MagazineIssueModel.fromJson)
           .toList(growable: false);
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø£Ø¹Ø¯Ø§Ø¯ Ø§Ù„Ù…Ø¬Ù„Ø©.');
     }
   }
@@ -641,8 +641,8 @@ class BackendService {
         (data['data'] ?? <String, dynamic>{}) as Map,
       );
       return MagazineIssueModel.fromJson(json);
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø¹Ø¯Ø¯.');
     }
   }
@@ -654,7 +654,7 @@ class BackendService {
       final raw = data['data'];
       if (raw is! Map<String, dynamic>) return null;
       return MagazineIssueModel.fromJson(raw);
-    } on DioError catch (_) {
+    } on DioException catch (_) {
       return null;
     }
   }
@@ -664,7 +664,7 @@ class BackendService {
       await _dio.post('/magazine/issues/$issueId/download-track', data: {
         'source': 'mobile_app',
       });
-    } on DioError catch (_) {
+    } on DioException catch (_) {
       // Ignore analytics failure to keep UX smooth.
     }
   }
@@ -678,9 +678,9 @@ class BackendService {
       final downloadDio = Dio(
         BaseOptions(
           headers: Map<String, dynamic>.from(_dio.options.headers),
-          connectTimeout: 30000,
-          receiveTimeout: 0,
-          sendTimeout: 0,
+          connectTimeout: const Duration(milliseconds: 30000),
+          receiveTimeout: null,
+          sendTimeout: null,
           followRedirects: true,
           maxRedirects: 5,
         ),
@@ -692,8 +692,8 @@ class BackendService {
         onReceiveProgress: onReceiveProgress,
         options: Options(responseType: ResponseType.bytes),
       );
-    } on DioError catch (e) {
-      throw _mapDioError(e, fallbackMessage: 'ØªØ¹Ø°Ø± ØªÙ†Ø²ÙŠÙ„ Ø§Ù„Ù…Ù„Ù.');
+    } on DioException catch (e) {
+      throw _mapDioException(e, fallbackMessage: 'ØªØ¹Ø°Ø± ØªÙ†Ø²ÙŠÙ„ Ø§Ù„Ù…Ù„Ù.');
     }
   }
 
@@ -702,7 +702,7 @@ class BackendService {
       final response = await _dio.get('/notifications/unread-count');
       final data = Map<String, dynamic>.from(response.data as Map);
       return int.tryParse((data['unread_count'] ?? 0).toString()) ?? 0;
-    } on DioError catch (_) {
+    } on DioException catch (_) {
       return 0;
     }
   }
@@ -716,8 +716,8 @@ class BackendService {
           .whereType<Map<String, dynamic>>()
           .map((e) => Map<String, dynamic>.from(e))
           .toList(growable: false);
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ ØªØ¹Ù„ÙŠÙ‚Ø§ØªÙƒ.');
     }
   }
@@ -731,22 +731,22 @@ class BackendService {
           .whereType<Map<String, dynamic>>()
           .map((e) => Map<String, dynamic>.from(e))
           .toList(growable: false);
-    } on DioError catch (e) {
-      throw _mapDioError(e,
+    } on DioException catch (e) {
+      throw _mapDioException(e,
           fallbackMessage: 'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø¥Ø¹Ø¬Ø§Ø¨Ø§ØªÙƒ.');
     }
   }
 
-  ApiException _mapDioError(DioError error, {required String fallbackMessage}) {
+  ApiException _mapDioException(DioException error, {required String fallbackMessage}) {
     final response = error.response;
     final statusCode = response?.statusCode;
     final data = response?.data;
 
     if (response == null) {
-      if (error.type == DioErrorType.connectTimeout ||
-          error.type == DioErrorType.receiveTimeout ||
-          error.type == DioErrorType.sendTimeout ||
-          error.type == DioErrorType.other) {
+      if (error.type == DioExceptionType.connectionTimeout ||
+          error.type == DioExceptionType.receiveTimeout ||
+          error.type == DioExceptionType.sendTimeout ||
+          error.type == DioExceptionType.connectionError) {
         return ApiException(
           message:
               'ØªØ¹Ø°Ø± Ø§Ù„Ø§ØªØµØ§Ù„ Ø¨Ø§Ù„Ø®Ø§Ø¯Ù…. ØªØ­Ù‚Ù‚ Ù…Ù† Ø§ØªØµØ§Ù„ Ø§Ù„Ø¥Ù†ØªØ±Ù†Øª ÙˆÙ…Ù† Ø¥Ø¹Ø¯Ø§Ø¯ API_BASE_URL Ø§Ù„ØµØ­ÙŠØ­.',
