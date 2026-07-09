@@ -499,100 +499,100 @@ class _ArticleViewState extends ConsumerState<_ArticleView> {
                     data: articleBodyHtml,
                     style: {
                       'body': Style(
-                        margin: EdgeInsets.zero,
-                        padding: EdgeInsets.zero,
+                        margin: Margins.zero,
+                        padding: HtmlPaddings.zero,
                         lineHeight: const LineHeight(2.05),
-                        fontSize: const FontSize(18),
+                        fontSize: FontSize(18),
                         fontWeight: FontWeight.w500,
                         color: textColor,
                       ),
                       'p': Style(
-                        margin: const EdgeInsets.only(top: 0, bottom: 16),
+                        margin: Margins.only(top: 0, bottom: 16),
                         color: textColor,
                       ),
                       'div': Style(
-                        margin: EdgeInsets.zero,
-                        padding: EdgeInsets.zero,
+                        margin: Margins.zero,
+                        padding: HtmlPaddings.zero,
                         color: textColor,
                       ),
                       'ul': Style(
-                        margin: const EdgeInsets.only(top: 0, bottom: 12),
-                        padding: const EdgeInsets.only(right: 20),
+                        margin: Margins.only(top: 0, bottom: 12),
+                        padding: HtmlPaddings.only(right: 20),
                         color: textColor,
                         lineHeight: const LineHeight(1.9),
                       ),
                       'ol': Style(
-                        margin: const EdgeInsets.only(top: 0, bottom: 12),
-                        padding: const EdgeInsets.only(right: 20),
+                        margin: Margins.only(top: 0, bottom: 12),
+                        padding: HtmlPaddings.only(right: 20),
                         color: textColor,
                         lineHeight: const LineHeight(1.9),
                       ),
                       'h2': Style(
-                        fontSize: const FontSize(24),
+                        fontSize: FontSize(24),
                         fontWeight: FontWeight.w800,
-                        margin: const EdgeInsets.only(top: 0, bottom: 10),
+                        margin: Margins.only(top: 0, bottom: 10),
                         color: textColor,
                       ),
                       'h3': Style(
-                        fontSize: const FontSize(21),
+                        fontSize: FontSize(21),
                         fontWeight: FontWeight.w700,
-                        margin: const EdgeInsets.only(top: 0, bottom: 8),
+                        margin: Margins.only(top: 0, bottom: 8),
                         color: textColor,
                       ),
                       'a': Style(
                           color: AppColors.gold,
                           textDecoration: TextDecoration.none),
                       'img': Style(
-                        display: Display.NONE,
-                        margin: EdgeInsets.zero,
+                        display: Display.none,
+                        margin: Margins.zero,
                       ),
                       'figure': Style(
-                        margin: EdgeInsets.zero,
-                        padding: EdgeInsets.zero,
+                        margin: Margins.zero,
+                        padding: HtmlPaddings.zero,
                       ),
                       '.ez-toc-container': Style(
-                        margin: EdgeInsets.zero,
-                        padding: EdgeInsets.zero,
+                        margin: Margins.zero,
+                        padding: HtmlPaddings.zero,
                         backgroundColor: Colors.transparent,
                       ),
                       '.ez-toc-title-container': Style(
-                        margin: EdgeInsets.zero,
-                        padding: EdgeInsets.zero,
+                        margin: Margins.zero,
+                        padding: HtmlPaddings.zero,
                       ),
-                      '.ez-toc-title': Style(display: Display.NONE),
+                      '.ez-toc-title': Style(display: Display.none),
                       '.ez-toc-list': Style(
-                        margin: const EdgeInsets.only(top: 0, bottom: 12),
-                        padding: const EdgeInsets.only(right: 18),
+                        margin: Margins.only(top: 0, bottom: 12),
+                        padding: HtmlPaddings.only(right: 18),
                       ),
-                      '.wp-block-image': Style(display: Display.NONE),
-                      '.wp-block-gallery': Style(display: Display.NONE),
-                      '.gallery': Style(display: Display.NONE),
-                      '.slider-container': Style(display: Display.NONE),
+                      '.wp-block-image': Style(display: Display.none),
+                      '.wp-block-gallery': Style(display: Display.none),
+                      '.gallery': Style(display: Display.none),
+                      '.slider-container': Style(display: Display.none),
                       '.post-bottom-meta': Style(
-                        display: Display.BLOCK,
-                        margin: const EdgeInsets.only(top: 14, bottom: 10),
-                        padding: EdgeInsets.zero,
+                        display: Display.block,
+                        margin: Margins.only(top: 14, bottom: 10),
+                        padding: HtmlPaddings.zero,
                       ),
                       '.post-bottom-meta-title': Style(
-                        display: Display.BLOCK,
-                        margin: const EdgeInsets.only(bottom: 6),
+                        display: Display.block,
+                        margin: Margins.only(bottom: 6),
                         fontWeight: FontWeight.w700,
                         color: textColor,
                       ),
                       '.tagcloud': Style(
-                        display: Display.BLOCK,
-                        margin: EdgeInsets.zero,
-                        padding: EdgeInsets.zero,
+                        display: Display.block,
+                        margin: Margins.zero,
+                        padding: HtmlPaddings.zero,
                         color: textColor,
                       ),
                       '.meta-author-wrapper': Style(
-                        display: Display.BLOCK,
-                        margin: const EdgeInsets.only(bottom: 8),
+                        display: Display.block,
+                        margin: Margins.only(bottom: 8),
                         color: textColor,
                       ),
                       'blockquote': Style(
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        padding: const EdgeInsets.all(10),
+                        margin: Margins.symmetric(vertical: 10),
+                        padding: HtmlPaddings.all(10),
                         border: const Border(
                           right: BorderSide(color: AppColors.gold, width: 3),
                         ),
@@ -602,20 +602,20 @@ class _ArticleViewState extends ConsumerState<_ArticleView> {
                         color: textColor,
                       ),
                       'li': Style(
-                        margin: EdgeInsets.zero,
-                        padding: EdgeInsets.zero,
+                        margin: Margins.zero,
+                        padding: HtmlPaddings.zero,
                         lineHeight: const LineHeight(1.9),
                         color: textColor,
                       ),
-                      '.widget-title': Style(display: Display.NONE),
-                      '.the-global-title': Style(display: Display.NONE),
-                      '.the-subtitle': Style(display: Display.NONE),
+                      '.widget-title': Style(display: Display.none),
+                      '.the-global-title': Style(display: Display.none),
+                      '.the-subtitle': Style(display: Display.none),
                       '#story-highlights': Style(
-                        margin: EdgeInsets.zero,
-                        padding: EdgeInsets.zero,
+                        margin: Margins.zero,
+                        padding: HtmlPaddings.zero,
                       ),
                     },
-                    onLinkTap: (url, _, __, ___) async {
+                    onLinkTap: (url, _, __) async {
                       if (url == null) return;
                       final uri = Uri.tryParse(url);
                       if (uri != null) {
@@ -1747,10 +1747,28 @@ class _FullscreenVideoPlayerState extends State<_FullscreenVideoPlayer> {
   }
 }
 
-class _InlineWebVideo extends StatelessWidget {
+class _InlineWebVideo extends StatefulWidget {
   const _InlineWebVideo({required this.url});
 
   final String url;
+
+  @override
+  State<_InlineWebVideo> createState() => _InlineWebVideoState();
+}
+
+class _InlineWebVideoState extends State<_InlineWebVideo> {
+  late final WebViewController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted);
+    final uri = Uri.tryParse(widget.url);
+    if (uri != null) {
+      _controller.loadRequest(uri);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1758,19 +1776,35 @@ class _InlineWebVideo extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: SizedBox(
         height: 220,
-        child: WebView(
-          initialUrl: url,
-          javascriptMode: JavascriptMode.unrestricted,
-        ),
+        child: WebViewWidget(controller: _controller),
       ),
     );
   }
 }
 
-class _ArticleWebContentInline extends StatelessWidget {
+class _ArticleWebContentInline extends StatefulWidget {
   const _ArticleWebContentInline({required this.url});
 
   final String url;
+
+  @override
+  State<_ArticleWebContentInline> createState() =>
+      _ArticleWebContentInlineState();
+}
+
+class _ArticleWebContentInlineState extends State<_ArticleWebContentInline> {
+  late final WebViewController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted);
+    final uri = Uri.tryParse(widget.url);
+    if (uri != null) {
+      _controller.loadRequest(uri);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1778,10 +1812,7 @@ class _ArticleWebContentInline extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: SizedBox(
         height: 620,
-        child: WebView(
-          initialUrl: url,
-          javascriptMode: JavascriptMode.unrestricted,
-        ),
+        child: WebViewWidget(controller: _controller),
       ),
     );
   }
@@ -1907,8 +1938,8 @@ class _NoContentFallback extends StatelessWidget {
             data: article.excerpt,
             style: {
               'body': Style(
-                margin: EdgeInsets.zero,
-                padding: EdgeInsets.zero,
+                margin: Margins.zero,
+                padding: HtmlPaddings.zero,
                 color: textColor,
               ),
               'p': Style(color: textColor),
