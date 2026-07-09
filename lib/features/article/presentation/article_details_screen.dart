@@ -6,7 +6,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -20,6 +19,7 @@ import '../../../shared/models/article_model.dart';
 import '../../../shared/models/comment_model.dart';
 import '../../../shared/services/api_exception.dart';
 import '../../../shared/services/service_providers.dart';
+import '../../../shared/utils/share_helper.dart';
 import '../../../shared/widgets/ad_banner.dart';
 import '../../../shared/widgets/article_card.dart';
 import '../../../shared/widgets/loading_list.dart';
@@ -78,8 +78,6 @@ class _ArticleView extends ConsumerStatefulWidget {
 }
 
 class _ArticleViewState extends ConsumerState<_ArticleView> {
-  static const MethodChannel _nativeShareChannel =
-      MethodChannel('com.arabmashreq.mobile/share');
   late final Future<List<AdModel>> _inlineAdsFuture;
   late final Future<List<AdModel>> _bottomAdsFuture;
   late Future<List<CommentModel>> _commentsFuture;
@@ -284,32 +282,11 @@ class _ArticleViewState extends ConsumerState<_ArticleView> {
         .join('\n')
         .trim();
 
-    if (text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text(
-                '\u0644\u0627 \u064a\u0648\u062c\u062f \u0645\u062d\u062a\u0648\u0649 \u0635\u0627\u0644\u062d \u0644\u0644\u0645\u0634\u0627\u0631\u0643\u0629.')),
-      );
-      return;
-    }
-
-    try {
-      await Share.share(text);
-    } catch (_) {
-      try {
-        await _nativeShareChannel.invokeMethod('shareText', <String, dynamic>{
-          'text': text,
-          if (title.isNotEmpty) 'subject': title,
-        });
-      } catch (_) {
-        if (!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text(
-                  '\u062a\u0639\u0630\u0631 \u0641\u062a\u062d \u0646\u0627\u0641\u0630\u0629 \u0627\u0644\u0645\u0634\u0627\u0631\u0643\u0629 \u062d\u0627\u0644\u064a\u0627\u064b.')),
-        );
-      }
-    }
+    await ShareHelper.shareText(
+      context,
+      text: text,
+      subject: title,
+    );
   }
 
   Future<String?> _promptTextDialog({
@@ -522,100 +499,100 @@ class _ArticleViewState extends ConsumerState<_ArticleView> {
                     data: articleBodyHtml,
                     style: {
                       'body': Style(
-                        margin: Margins.zero,
-                        padding: HtmlPaddings.zero,
+                        margin: EdgeInsets.zero,
+                        padding: EdgeInsets.zero,
                         lineHeight: const LineHeight(2.05),
-                        fontSize: FontSize(18),
+                        fontSize: const FontSize(18),
                         fontWeight: FontWeight.w500,
                         color: textColor,
                       ),
                       'p': Style(
-                        margin: Margins.only(top: 0, bottom: 16),
+                        margin: const EdgeInsets.only(top: 0, bottom: 16),
                         color: textColor,
                       ),
                       'div': Style(
-                        margin: Margins.zero,
-                        padding: HtmlPaddings.zero,
+                        margin: EdgeInsets.zero,
+                        padding: EdgeInsets.zero,
                         color: textColor,
                       ),
                       'ul': Style(
-                        margin: Margins.only(top: 0, bottom: 12),
-                        padding: HtmlPaddings.only(right: 20),
+                        margin: const EdgeInsets.only(top: 0, bottom: 12),
+                        padding: const EdgeInsets.only(right: 20),
                         color: textColor,
                         lineHeight: const LineHeight(1.9),
                       ),
                       'ol': Style(
-                        margin: Margins.only(top: 0, bottom: 12),
-                        padding: HtmlPaddings.only(right: 20),
+                        margin: const EdgeInsets.only(top: 0, bottom: 12),
+                        padding: const EdgeInsets.only(right: 20),
                         color: textColor,
                         lineHeight: const LineHeight(1.9),
                       ),
                       'h2': Style(
-                        fontSize: FontSize(24),
+                        fontSize: const FontSize(24),
                         fontWeight: FontWeight.w800,
-                        margin: Margins.only(top: 0, bottom: 10),
+                        margin: const EdgeInsets.only(top: 0, bottom: 10),
                         color: textColor,
                       ),
                       'h3': Style(
-                        fontSize: FontSize(21),
+                        fontSize: const FontSize(21),
                         fontWeight: FontWeight.w700,
-                        margin: Margins.only(top: 0, bottom: 8),
+                        margin: const EdgeInsets.only(top: 0, bottom: 8),
                         color: textColor,
                       ),
                       'a': Style(
                           color: AppColors.gold,
                           textDecoration: TextDecoration.none),
                       'img': Style(
-                        display: Display.none,
-                        margin: Margins.zero,
+                        display: Display.NONE,
+                        margin: EdgeInsets.zero,
                       ),
                       'figure': Style(
-                        margin: Margins.zero,
-                        padding: HtmlPaddings.zero,
+                        margin: EdgeInsets.zero,
+                        padding: EdgeInsets.zero,
                       ),
                       '.ez-toc-container': Style(
-                        margin: Margins.zero,
-                        padding: HtmlPaddings.zero,
+                        margin: EdgeInsets.zero,
+                        padding: EdgeInsets.zero,
                         backgroundColor: Colors.transparent,
                       ),
                       '.ez-toc-title-container': Style(
-                        margin: Margins.zero,
-                        padding: HtmlPaddings.zero,
+                        margin: EdgeInsets.zero,
+                        padding: EdgeInsets.zero,
                       ),
-                      '.ez-toc-title': Style(display: Display.none),
+                      '.ez-toc-title': Style(display: Display.NONE),
                       '.ez-toc-list': Style(
-                        margin: Margins.only(top: 0, bottom: 12),
-                        padding: HtmlPaddings.only(right: 18),
+                        margin: const EdgeInsets.only(top: 0, bottom: 12),
+                        padding: const EdgeInsets.only(right: 18),
                       ),
-                      '.wp-block-image': Style(display: Display.none),
-                      '.wp-block-gallery': Style(display: Display.none),
-                      '.gallery': Style(display: Display.none),
-                      '.slider-container': Style(display: Display.none),
+                      '.wp-block-image': Style(display: Display.NONE),
+                      '.wp-block-gallery': Style(display: Display.NONE),
+                      '.gallery': Style(display: Display.NONE),
+                      '.slider-container': Style(display: Display.NONE),
                       '.post-bottom-meta': Style(
-                        display: Display.block,
-                        margin: Margins.only(top: 14, bottom: 10),
-                        padding: HtmlPaddings.zero,
+                        display: Display.BLOCK,
+                        margin: const EdgeInsets.only(top: 14, bottom: 10),
+                        padding: EdgeInsets.zero,
                       ),
                       '.post-bottom-meta-title': Style(
-                        display: Display.block,
-                        margin: Margins.only(bottom: 6),
+                        display: Display.BLOCK,
+                        margin: const EdgeInsets.only(bottom: 6),
                         fontWeight: FontWeight.w700,
                         color: textColor,
                       ),
                       '.tagcloud': Style(
-                        display: Display.block,
-                        margin: Margins.zero,
-                        padding: HtmlPaddings.zero,
+                        display: Display.BLOCK,
+                        margin: EdgeInsets.zero,
+                        padding: EdgeInsets.zero,
                         color: textColor,
                       ),
                       '.meta-author-wrapper': Style(
-                        display: Display.block,
-                        margin: Margins.only(bottom: 8),
+                        display: Display.BLOCK,
+                        margin: const EdgeInsets.only(bottom: 8),
                         color: textColor,
                       ),
                       'blockquote': Style(
-                        margin: Margins.symmetric(vertical: 10),
-                        padding: HtmlPaddings.all(10),
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.all(10),
                         border: const Border(
                           right: BorderSide(color: AppColors.gold, width: 3),
                         ),
@@ -625,24 +602,24 @@ class _ArticleViewState extends ConsumerState<_ArticleView> {
                         color: textColor,
                       ),
                       'li': Style(
-                        margin: Margins.zero,
-                        padding: HtmlPaddings.zero,
+                        margin: EdgeInsets.zero,
+                        padding: EdgeInsets.zero,
                         lineHeight: const LineHeight(1.9),
                         color: textColor,
                       ),
-                      '.widget-title': Style(display: Display.none),
-                      '.the-global-title': Style(display: Display.none),
-                      '.the-subtitle': Style(display: Display.none),
+                      '.widget-title': Style(display: Display.NONE),
+                      '.the-global-title': Style(display: Display.NONE),
+                      '.the-subtitle': Style(display: Display.NONE),
                       '#story-highlights': Style(
-                        margin: Margins.zero,
-                        padding: HtmlPaddings.zero,
+                        margin: EdgeInsets.zero,
+                        padding: EdgeInsets.zero,
                       ),
                     },
-                    onLinkTap: (url, _, __) {
+                    onLinkTap: (url, _, __, ___) async {
                       if (url == null) return;
                       final uri = Uri.tryParse(url);
                       if (uri != null) {
-                        launchUrl(uri,
+                        await launchUrl(uri,
                             mode: LaunchMode.externalApplication);
                       }
                     },
@@ -1770,25 +1747,10 @@ class _FullscreenVideoPlayerState extends State<_FullscreenVideoPlayer> {
   }
 }
 
-class _InlineWebVideo extends StatefulWidget {
+class _InlineWebVideo extends StatelessWidget {
   const _InlineWebVideo({required this.url});
 
   final String url;
-
-  @override
-  State<_InlineWebVideo> createState() => _InlineWebVideoState();
-}
-
-class _InlineWebVideoState extends State<_InlineWebVideo> {
-  late final WebViewController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadRequest(Uri.parse(widget.url));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -1796,31 +1758,19 @@ class _InlineWebVideoState extends State<_InlineWebVideo> {
       borderRadius: BorderRadius.circular(12),
       child: SizedBox(
         height: 220,
-        child: WebViewWidget(controller: _controller),
+        child: WebView(
+          initialUrl: url,
+          javascriptMode: JavascriptMode.unrestricted,
+        ),
       ),
     );
   }
 }
 
-class _ArticleWebContentInline extends StatefulWidget {
+class _ArticleWebContentInline extends StatelessWidget {
   const _ArticleWebContentInline({required this.url});
 
   final String url;
-
-  @override
-  State<_ArticleWebContentInline> createState() => _ArticleWebContentInlineState();
-}
-
-class _ArticleWebContentInlineState extends State<_ArticleWebContentInline> {
-  late final WebViewController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadRequest(Uri.parse(widget.url));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -1828,7 +1778,10 @@ class _ArticleWebContentInlineState extends State<_ArticleWebContentInline> {
       borderRadius: BorderRadius.circular(12),
       child: SizedBox(
         height: 620,
-        child: WebViewWidget(controller: _controller),
+        child: WebView(
+          initialUrl: url,
+          javascriptMode: JavascriptMode.unrestricted,
+        ),
       ),
     );
   }
@@ -1954,8 +1907,8 @@ class _NoContentFallback extends StatelessWidget {
             data: article.excerpt,
             style: {
               'body': Style(
-                margin: Margins.zero,
-                padding: HtmlPaddings.zero,
+                margin: EdgeInsets.zero,
+                padding: EdgeInsets.zero,
                 color: textColor,
               ),
               'p': Style(color: textColor),
