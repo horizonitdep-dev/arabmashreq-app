@@ -26,7 +26,7 @@ class AppTheme {
         titleTextStyle: textTheme.titleLarge,
         iconTheme: const IconThemeData(color: AppColors.black),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         margin: EdgeInsets.zero,
         elevation: 0,
         color: AppColors.lightSurface,
@@ -82,7 +82,7 @@ class AppTheme {
               textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
         ),
       ),
-      tabBarTheme: TabBarTheme(
+      tabBarTheme: TabBarThemeData(
         labelColor: AppColors.black,
         unselectedLabelColor: AppColors.lightMuted,
         indicator: BoxDecoration(
@@ -113,7 +113,7 @@ class AppTheme {
             textTheme.bodyMedium?.copyWith(color: Colors.white, height: 1.7),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         titleTextStyle: textTheme.titleLarge,
         contentTextStyle: textTheme.bodyMedium,
@@ -143,7 +143,7 @@ class AppTheme {
         titleTextStyle: textTheme.titleLarge,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         margin: EdgeInsets.zero,
         elevation: 0,
         color: AppColors.darkSurface,
@@ -198,7 +198,7 @@ class AppTheme {
               textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
         ),
       ),
-      tabBarTheme: TabBarTheme(
+      tabBarTheme: TabBarThemeData(
         labelColor: AppColors.yellow,
         unselectedLabelColor: AppColors.darkMuted,
         indicator: BoxDecoration(
@@ -228,7 +228,7 @@ class AppTheme {
         contentTextStyle: textTheme.bodyMedium?.copyWith(color: Colors.white),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: AppColors.darkSurface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         titleTextStyle: textTheme.titleLarge,

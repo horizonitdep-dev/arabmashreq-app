@@ -1078,10 +1078,10 @@ class _StaticPageView extends StatelessWidget {
                         data: content,
                         style: {
                           'body': Style(
-                            margin: EdgeInsets.zero,
-                            padding: EdgeInsets.zero,
+                            margin: Margins.zero,
+                            padding: HtmlPaddings.zero,
                             lineHeight: const LineHeight(1.95),
-                            fontSize: const FontSize(16),
+                            fontSize: FontSize(16),
                             color: textColor,
                           ),
                           'p': Style(color: textColor),
