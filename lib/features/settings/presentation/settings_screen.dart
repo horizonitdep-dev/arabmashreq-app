@@ -38,7 +38,7 @@ class SettingsScreen extends ConsumerWidget {
     final appSettingsAsync = ref.watch(appSettingsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Ø§Ù„Ù…Ø²ÙŠØ¯')),
+      appBar: AppBar(title: const Text('المزيد')),
       body: ListView(
         padding: AppSpacing.pagePadding,
         children: [
@@ -51,22 +51,22 @@ class SettingsScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Ø§Ù„Ù…Ø¸Ù‡Ø± ÙˆØ§Ù„Ù‚Ø±Ø§Ø¡Ø©',
+                    'المظهر والقراءة',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: AppSpacing.small),
                   SwitchListTile.adaptive(
                     contentPadding: EdgeInsets.zero,
-                    title: const Text('Ø§Ù„ÙˆØ¶Ø¹ Ø§Ù„Ø¯Ø§ÙƒÙ†'),
-                    subtitle: const Text(
-                        'ØªÙØ¹ÙŠÙ„ Ø§Ù„Ù…Ø¸Ù‡Ø± Ø§Ù„Ø¯Ø§ÙƒÙ† Ù„Ù‚Ø±Ø§Ø¡Ø© Ù…Ø±ÙŠØ­Ø© Ù„ÙŠÙ„Ù‹Ø§.'),
+                    title: const Text('الوضع الداكن'),
+                    subtitle:
+                        const Text('تفعيل المظهر الداكن لقراءة مريحة ليلًا.'),
                     value: state.isDarkMode,
                     onChanged: (v) => ref
                         .read(settingsControllerProvider.notifier)
                         .toggleDarkMode(v),
                   ),
                   const SizedBox(height: AppSpacing.xSmall),
-                  Text('Ø­Ø¬Ù… Ø§Ù„Ø®Ø·',
+                  Text('حجم الخط',
                       style: Theme.of(context).textTheme.titleSmall),
                   const SizedBox(height: AppSpacing.xSmall / 2),
                   Slider(
@@ -82,8 +82,8 @@ class SettingsScreen extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
-                      Text('Ø£ØµØºØ±'),
-                      Text('Ø£ÙƒØ¨Ø±'),
+                      Text('أصغر'),
+                      Text('أكبر'),
                     ],
                   ),
                 ],
@@ -97,9 +97,9 @@ class SettingsScreen extends ConsumerWidget {
             child: ListTile(
               leading: const Icon(Icons.notifications_active_outlined,
                   color: AppColors.gold),
-              title: const Text('ØµÙ†Ø¯ÙˆÙ‚ Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª'),
+              title: const Text('صندوق الإشعارات'),
               subtitle: const Text(
-                  'Ø¹Ø±Ø¶ Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª Ø§Ù„Ù…Ø­ÙÙˆØ¸Ø© ÙˆÙØªØ­ Ø§Ù„Ù…Ø­ØªÙˆÙ‰ Ø§Ù„Ù…Ø±ØªØ¨Ø· Ø¨Ù‡Ø§.'),
+                  'عرض الإشعارات المحفوظة وفتح المحتوى المرتبط بها.'),
               trailing: unreadAsync.when(
                 data: (count) {
                   if (count <= 0) {
@@ -137,19 +137,19 @@ class SettingsScreen extends ConsumerWidget {
             child: Column(
               children: const [
                 _StaticPageTile(
-                  title: 'Ù…Ù† Ù†Ø­Ù†',
+                  title: 'من نحن',
                   icon: Icons.info_outline_rounded,
                   settingKey: 'about_us',
                 ),
                 Divider(height: 1),
                 _StaticPageTile(
-                  title: 'Ø§Ù„ÙØ±ÙŠÙ‚',
+                  title: 'الفريق',
                   icon: Icons.people_outline,
                   settingKey: 'team',
                 ),
                 Divider(height: 1),
                 _StaticPageTile(
-                  title: 'Ø³ÙŠØ§Ø³Ø© Ø§Ù„Ø®ØµÙˆØµÙŠØ©',
+                  title: 'سياسة الخصوصية',
                   icon: Icons.privacy_tip_outlined,
                   settingKey: 'privacy_policy',
                 ),
@@ -165,15 +165,14 @@ class SettingsScreen extends ConsumerWidget {
                 ListTile(
                   leading:
                       const Icon(Icons.share_outlined, color: AppColors.gold),
-                  title: const Text('Ù…Ø´Ø§Ø±ÙƒØ© Ø§Ù„ØªØ·Ø¨ÙŠÙ‚'),
-                  subtitle: const Text(
-                      'Ø´Ø§Ø±Ùƒ Ø§Ù„ØªØ·Ø¨ÙŠÙ‚ Ù…Ø¹ Ø§Ù„Ø£ØµØ¯Ù‚Ø§Ø¡.'),
+                  title: const Text('مشاركة التطبيق'),
+                  subtitle: const Text('شارك التطبيق مع الأصدقاء.'),
                   onTap: () => _shareApp(context, appSettingsAsync),
                 ),
                 const Divider(height: 1),
                 const ListTile(
                   leading: Icon(Icons.verified_outlined, color: AppColors.gold),
-                  title: Text('Ø§Ù„Ø¥ØµØ¯Ø§Ø±'),
+                  title: Text('الإصدار'),
                   subtitle: Text('1.0.0'),
                 ),
               ],
@@ -497,7 +496,7 @@ class _SupportAndSocialCard extends StatelessWidget {
     if (text.isEmpty) return '';
 
     final westernDigits = text.replaceAllMapped(
-      RegExp(r'[Ù -Ù©]'),
+      RegExp(r'[٠-٩]'),
       (m) => (m.group(0)!.codeUnitAt(0) - 1632).toString(),
     );
     final hasPlus = westernDigits.contains('+');
@@ -765,20 +764,21 @@ class _AccountCard extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Ø§Ù„Ø­Ø³Ø§Ø¨',
-                style: Theme.of(context).textTheme.titleMedium),
+            Text('الحساب', style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: AppSpacing.small),
             if (!authState.isAuthenticated) ...[
               const Text(
-                'Ø£Ù†Øª Ø§Ù„Ø¢Ù† ØªØªØµÙØ­ ÙƒØ¶ÙŠÙ. Ø³Ø¬Ù‘Ù„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ù„Ø­ÙØ¸ ØªÙØ¶ÙŠÙ„Ø§Øª Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª ÙˆØ¥Ø¯Ø§Ø±Ø© Ù…Ù„ÙÙƒ Ø§Ù„Ø´Ø®ØµÙŠ.',
+                'أنت الآن تتصفح كضيف. سجّل الدخول لحفظ تفضيلات الإشعارات وإدارة ملفك الشخصي.',
               ),
               const SizedBox(height: AppSpacing.small),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.gold,
-                    foregroundColor: Colors.black,
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(AppColors.gold),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.black),
                   ),
                   onPressed: () {
                     Navigator.of(context).push(
@@ -786,8 +786,7 @@ class _AccountCard extends ConsumerWidget {
                     );
                   },
                   icon: const Icon(Icons.login),
-                  label: const Text(
-                      'ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ / Ø¥Ù†Ø´Ø§Ø¡ Ø­Ø³Ø§Ø¨'),
+                  label: const Text('تسجيل الدخول / إنشاء حساب'),
                 ),
               ),
             ] else ...[
@@ -800,7 +799,7 @@ class _AccountCard extends ConsumerWidget {
                         ),
                       )
                     : const CircleAvatar(child: Icon(Icons.person_outline)),
-                title: Text(authState.user?.name ?? 'Ù…Ø³ØªØ®Ø¯Ù…'),
+                title: Text(authState.user?.name ?? 'مستخدم'),
                 subtitle: Text(authState.user?.email ?? ''),
               ),
               const SizedBox(height: 6),
@@ -813,7 +812,7 @@ class _AccountCard extends ConsumerWidget {
                     );
                   },
                   icon: const Icon(Icons.badge_outlined),
-                  label: const Text('Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ'),
+                  label: const Text('الملف الشخصي'),
                 ),
               ),
               const SizedBox(height: 8),
@@ -825,7 +824,7 @@ class _AccountCard extends ConsumerWidget {
                       : () =>
                           ref.read(authControllerProvider.notifier).logout(),
                   icon: const Icon(Icons.logout),
-                  label: const Text('ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø®Ø±ÙˆØ¬'),
+                  label: const Text('تسجيل الخروج'),
                 ),
               ),
             ],
@@ -863,15 +862,14 @@ class _NotificationPreferencesSection extends ConsumerWidget {
       return Card(
         child: ListTile(
           leading: const Icon(Icons.notifications_off_outlined),
-          title: const Text('ØªÙØ¶ÙŠÙ„Ø§Øª Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª'),
-          subtitle: const Text(
-              'Ù‡Ø°Ù‡ Ø§Ù„Ù…ÙŠØ²Ø© Ù…ØªØ§Ø­Ø© Ø¨Ø¹Ø¯ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„.'),
+          title: const Text('تفضيلات الإشعارات'),
+          subtitle: const Text('هذه الميزة متاحة بعد تسجيل الدخول.'),
           trailing: TextButton(
             onPressed: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (_) => const AuthScreen()));
             },
-            child: const Text('ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„'),
+            child: const Text('تسجيل الدخول'),
           ),
         ),
       );
@@ -888,8 +886,8 @@ class _NotificationPreferencesSection extends ConsumerWidget {
             isSaving: authState.preferencesLoading,
           ),
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (_, __) => const Text(
-              'ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ø£Ù‚Ø³Ø§Ù… Ù„Ø§Ø®ØªÙŠØ§Ø± ØªÙØ¶ÙŠÙ„Ø§Øª Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª.'),
+          error: (_, __) =>
+              const Text('تعذر تحميل الأقسام لاختيار تفضيلات الإشعارات.'),
         ),
       ),
     );
@@ -944,7 +942,7 @@ class _NotificationPreferencesEditorState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'ØªÙØ¶ÙŠÙ„Ø§Øª Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª',
+          'تفضيلات الإشعارات',
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: AppSpacing.small),
@@ -952,16 +950,16 @@ class _NotificationPreferencesEditorState
           contentPadding: EdgeInsets.zero,
           value: _generalEnabled,
           onChanged: (v) => setState(() => _generalEnabled = v),
-          title: const Text('Ø¥Ø´Ø¹Ø§Ø±Ø§Øª Ø¹Ø§Ù…Ø©'),
+          title: const Text('إشعارات عامة'),
         ),
         SwitchListTile.adaptive(
           contentPadding: EdgeInsets.zero,
           value: _breakingEnabled,
           onChanged: (v) => setState(() => _breakingEnabled = v),
-          title: const Text('Ø¥Ø´Ø¹Ø§Ø±Ø§Øª Ø§Ù„Ø£Ø®Ø¨Ø§Ø± Ø§Ù„Ø¹Ø§Ø¬Ù„Ø©'),
+          title: const Text('إشعارات الأخبار العاجلة'),
         ),
         const SizedBox(height: 8),
-        const Text('Ø§Ù„Ø£Ù‚Ø³Ø§Ù… Ø§Ù„Ù…ÙØ¶Ù„Ø© Ù„Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª:'),
+        const Text('الأقسام المفضلة للإشعارات:'),
         const SizedBox(height: AppSpacing.small),
         Wrap(
           spacing: 8,
@@ -1007,7 +1005,7 @@ class _NotificationPreferencesEditorState
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
                 : const Icon(Icons.save_outlined),
-            label: const Text('Ø­ÙØ¸ Ø§Ù„ØªÙØ¶ÙŠÙ„Ø§Øª'),
+            label: const Text('حفظ التفضيلات'),
           ),
         ),
       ],
@@ -1034,8 +1032,8 @@ class _StaticPageTile extends ConsumerWidget {
       trailing: const Icon(Icons.chevron_left_rounded),
       onTap: () async {
         final pages = await ref.read(backendServiceProvider).fetchStaticPages();
-        final content = pages[settingKey]?.toString() ??
-            'Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ù…Ø­ØªÙˆÙ‰ Ù…ØªØ§Ø­ Ø­Ø§Ù„ÙŠÙ‹Ø§.';
+        final content =
+            pages[settingKey]?.toString() ?? 'لا يوجد محتوى متاح حاليًا.';
 
         // ignore: use_build_context_synchronously
         Navigator.of(context).push(
@@ -1072,18 +1070,18 @@ class _StaticPageView extends StatelessWidget {
             child: content.trim().isEmpty
                 ? const AppStateView(
                     icon: Icons.description_outlined,
-                    title: 'Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ù…Ø­ØªÙˆÙ‰',
-                    message: 'Ø³ÙŠØªÙ… Ø¥Ø¶Ø§ÙØ© Ø§Ù„Ù…Ø­ØªÙˆÙ‰ Ù„Ø§Ø­Ù‚Ù‹Ø§.',
+                    title: 'لا يوجد محتوى',
+                    message: 'سيتم إضافة المحتوى لاحقًا.',
                   )
                 : hasHtml
                     ? Html(
                         data: content,
                         style: {
                           'body': Style(
-                            margin: Margins.zero,
-                            padding: HtmlPaddings.zero,
+                            margin: EdgeInsets.zero,
+                            padding: EdgeInsets.zero,
                             lineHeight: const LineHeight(1.95),
-                            fontSize: FontSize(16),
+                            fontSize: const FontSize(16),
                             color: textColor,
                           ),
                           'p': Style(color: textColor),

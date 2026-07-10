@@ -26,7 +26,7 @@ class AppTheme {
         titleTextStyle: textTheme.titleLarge,
         iconTheme: const IconThemeData(color: AppColors.black),
       ),
-      cardTheme: CardThemeData(
+      cardTheme: CardTheme(
         margin: EdgeInsets.zero,
         elevation: 0,
         color: AppColors.lightSurface,
@@ -60,37 +60,29 @@ class AppTheme {
         focusedBorder: _inputBorder(AppColors.gold),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
+        style: _buttonStyle(
           backgroundColor: AppColors.black,
           foregroundColor: Colors.white,
-          minimumSize: const Size.fromHeight(46),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           textStyle:
               textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
+        style: _buttonStyle(
           foregroundColor: AppColors.black,
-          minimumSize: const Size.fromHeight(46),
           side: const BorderSide(color: AppColors.lightBorder),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           textStyle:
               textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-          foregroundColor: AppColors.gold,
-          textStyle:
-              textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800),
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all<Color>(AppColors.gold),
+          textStyle: MaterialStateProperty.all<TextStyle?>(
+              textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
         ),
       ),
-      tabBarTheme: TabBarThemeData(
+      tabBarTheme: TabBarTheme(
         labelColor: AppColors.black,
         unselectedLabelColor: AppColors.lightMuted,
         indicator: BoxDecoration(
@@ -105,8 +97,8 @@ class AppTheme {
         elevation: 0,
         backgroundColor: AppColors.lightSurface,
         indicatorColor: AppColors.sand,
-        labelTextStyle: WidgetStateProperty.resolveWith((states) {
-          final selected = states.contains(WidgetState.selected);
+        labelTextStyle: MaterialStateProperty.resolveWith((states) {
+          final selected = states.contains(MaterialState.selected);
           return GoogleFonts.tajawal(
             fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
             fontSize: 12.5,
@@ -121,7 +113,7 @@ class AppTheme {
             textTheme.bodyMedium?.copyWith(color: Colors.white, height: 1.7),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
-      dialogTheme: DialogThemeData(
+      dialogTheme: DialogTheme(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         titleTextStyle: textTheme.titleLarge,
         contentTextStyle: textTheme.bodyMedium,
@@ -151,7 +143,7 @@ class AppTheme {
         titleTextStyle: textTheme.titleLarge,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      cardTheme: CardThemeData(
+      cardTheme: CardTheme(
         margin: EdgeInsets.zero,
         elevation: 0,
         color: AppColors.darkSurface,
@@ -184,37 +176,29 @@ class AppTheme {
         focusedBorder: _inputBorder(AppColors.gold),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
+        style: _buttonStyle(
           backgroundColor: AppColors.gold,
           foregroundColor: Colors.black,
-          minimumSize: const Size.fromHeight(46),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           textStyle:
               textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
+        style: _buttonStyle(
           foregroundColor: const Color(0xFFE9E9E9),
-          minimumSize: const Size.fromHeight(46),
           side: const BorderSide(color: AppColors.darkBorder),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           textStyle:
               textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-          foregroundColor: AppColors.yellow,
-          textStyle:
-              textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800),
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all<Color>(AppColors.yellow),
+          textStyle: MaterialStateProperty.all<TextStyle?>(
+              textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
         ),
       ),
-      tabBarTheme: TabBarThemeData(
+      tabBarTheme: TabBarTheme(
         labelColor: AppColors.yellow,
         unselectedLabelColor: AppColors.darkMuted,
         indicator: BoxDecoration(
@@ -229,8 +213,8 @@ class AppTheme {
         elevation: 0,
         backgroundColor: AppColors.darkSurface,
         indicatorColor: const Color(0xFF2F2818),
-        labelTextStyle: WidgetStateProperty.resolveWith((states) {
-          final selected = states.contains(WidgetState.selected);
+        labelTextStyle: MaterialStateProperty.resolveWith((states) {
+          final selected = states.contains(MaterialState.selected);
           return GoogleFonts.tajawal(
             fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
             fontSize: 12.5,
@@ -244,7 +228,7 @@ class AppTheme {
         contentTextStyle: textTheme.bodyMedium?.copyWith(color: Colors.white),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
-      dialogTheme: DialogThemeData(
+      dialogTheme: DialogTheme(
         backgroundColor: AppColors.darkSurface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         titleTextStyle: textTheme.titleLarge,
@@ -308,6 +292,29 @@ class AppTheme {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(14),
       borderSide: BorderSide(color: color),
+    );
+  }
+
+  static ButtonStyle _buttonStyle({
+    Color? backgroundColor,
+    required Color foregroundColor,
+    BorderSide? side,
+    TextStyle? textStyle,
+  }) {
+    return ButtonStyle(
+      backgroundColor: backgroundColor == null
+          ? null
+          : MaterialStateProperty.all<Color>(backgroundColor),
+      foregroundColor: MaterialStateProperty.all<Color>(foregroundColor),
+      minimumSize: MaterialStateProperty.all<Size>(const Size.fromHeight(46)),
+      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+        const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      ),
+      side: side == null ? null : MaterialStateProperty.all<BorderSide>(side),
+      shape: MaterialStateProperty.all<OutlinedBorder>(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      ),
+      textStyle: MaterialStateProperty.all<TextStyle?>(textStyle),
     );
   }
 }

@@ -464,7 +464,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   child: const Text('إلغاء'),
                 ),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.red),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                  ),
                   onPressed: isDeleting
                       ? null
                       : () async {
