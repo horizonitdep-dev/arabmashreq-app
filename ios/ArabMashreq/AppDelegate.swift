@@ -1,5 +1,8 @@
 import UIKit
 import Flutter
+import Firebase
+import FirebaseMessaging
+import UserNotifications
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -7,11 +10,59 @@ import Flutter
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
+    // Configure Firebase before plugin registration
+    FirebaseApp.configure()
+
+    // Set UNUserNotificationCenter delegate for foreground notification display
+    UNUserNotificationCenter.current().delegate = self
+
     GeneratedPluginRegistrant.register(with: self)
     let didFinish = super.application(application, didFinishLaunchingWithOptions: launchOptions)
+
+    // Register for remote notifications to obtain APNs token
+    DispatchQueue.main.async {
+      application.registerForRemoteNotifications()
+    }
+
     configureShareChannel()
     return didFinish
   }
+
+  // MARK: - APNs Token Forwarding
+
+  override func application(
+    _ application: UIApplication,
+    didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+  ) {
+    // Forward APNs token to Firebase Messaging
+    Messaging.messaging().apnsToken = deviceToken
+  }
+
+  override func application(
+    _ application: UIApplication,
+    didFailToRegisterForRemoteNotificationsWithError error: Error
+  ) {
+  }
+
+  // MARK: - UNUserNotificationCenterDelegate
+
+  override func userNotificationCenter(
+    _ center: UNUserNotificationCenter,
+    willPresent notification: UNNotification,
+    withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+  ) {
+    completionHandler([[.alert, .badge, .sound]])
+  }
+
+  override func userNotificationCenter(
+    _ center: UNUserNotificationCenter,
+    didReceive response: UNNotificationResponse,
+    withCompletionHandler completionHandler: @escaping () -> Void
+  ) {
+    completionHandler()
+  }
+
+  // MARK: - Share Channel
 
   private func configureShareChannel() {
     guard let controller = window?.rootViewController as? FlutterViewController else {
